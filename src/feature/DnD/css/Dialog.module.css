@@ -1,0 +1,133 @@
+* {
+  text-align: left;
+  font-size: 14px;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* .comment{
+    border-style: solid;
+    border-width: thin;
+  } */
+
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+textarea {
+  padding: 10px;
+  width: 95%;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  /* box-shadow: 1px 1px 1px #999; */
+}
+
+.passwordChangeSuccessDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialogContent {
+  background: darkslategrey;
+  color: aliceblue;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 50%;
+  height: auto;
+  max-height: 500px; /* Đặt chiều cao tối đa của dialog */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
+}
+
+.dialogContent h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.dialogContent button {
+  margin: 10px;
+  padding: 5px 10px;
+  background: CornflowerBlue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* max-width: 10%; */
+}
+
+.issueMembers {
+  display: flex;
+  align-items: center;
+}
+
+.sameRow {
+  float: left;
+}
+
+.buttonless {
+  background: none !important;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.customButton {
+  /* display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer; */
+  /* display: inline-block !important; */
+  /* width: auto !important;
+    padding: 10px 20px;  */
+  /* Thêm padding để tạo khoảng cách xung quanh nội dung của button */
+
+  /* white-space: nowrap; */
+}
+
+.leftDiv {
+  float: left;
+  width: 70%;
+  /* background-color: lightblue; */
+  box-sizing: border-box;
+  padding: 0px;
+}
+
+.rightDiv {
+  float: right;
+  width: 20%;
+  /* background-color: lightcoral; */
+  box-sizing: border-box;
+  padding: 0px;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}

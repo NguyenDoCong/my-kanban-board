@@ -1,0 +1,114 @@
+#root {
+    max-width: 100%;
+    margin: 0 auto;
+    /* padding: 2rem; */
+    /* text-align: center; */
+    
+}
+
+.Container {
+    margin: 5px;
+    border-radius: 2px;
+    border: 1px solid lightgrey;
+    padding: 5px;
+  
+    /* margin-bottom: 8px; */
+  }
+  
+  .page{
+    background: linear-gradient(to right, #361c77
+    , #91316e
+    );
+    height: 100vw;
+    /* margin: 0px;
+    padding:0px;
+    border: none; */
+  }
+  
+  .topBar{
+    background: rgba(0, 0, 0, 0.3); /* Green background with 30% opacity */
+    color: azure;
+  }
+  
+  .Title {
+    padding: 5px;
+  }
+  
+  .TaskList {
+    padding: 5px;
+  }
+  
+  /* QuoteApp.module.css */
+  
+  /* Style cho danh sách chứa các mục kéo và thả */
+  .listContainer {
+    /* background: black; */
+    /* padding: 8px; */
+    /* width: 250px; */
+    margin: 5px;
+    color: gainsboro;
+    border-radius: 10px;
+    user-select: none;
+    padding: 5px;
+    /* margin: 0 5px 0 0; */
+    background: red;
+    display: flex;
+    flex-direction: column; /* Đảm bảo các Droppable sắp xếp dọc */
+  }
+  
+  /* Sử dụng flex-basis cho Droppable */
+  .droppable {
+    flex-basis: auto; /* Kích thước mặc định */
+    transition: flex-basis 0.3s; /* Áp dụng hiệu ứng khi kích thước thay đổi */
+    /* width: 100%; */
+    max-width: 100vw; /* Tối đa là 100% chiều rộng của viewport */
+    min-width: 0; /* Đảm bảo flex-basis có thể co lại nếu nội dung ít */
+    /* Các thuộc tính CSS khác cho phần tử item */
+  }
+  
+  /* Điều chỉnh kích thước của Droppable dựa trên số lượng Draggable */
+  .droppable.droppable-small {
+    flex-basis: 90px; 
+    /* Kích thước nhỏ khi có ít Draggable */
+  }
+  
+  .droppable.droppable-medium {
+    flex-basis: 150px; 
+    /* Kích thước trung bình khi có nhiều Draggable */
+  }
+  
+  .issue {
+    border-radius: 10px;
+  }
+  
+  /* Style cho mục khi đang được kéo và thả */
+  .itemContainer.isDragging {
+    background: lightgreen;
+  }
+  
+  /* Style cho danh sách khi đang được kéo và thả vào */
+  .listContainer.isDraggingOver {
+    background: lightblue;
+  }
+  
+  button {
+    background-color: black;
+    color: gainsboro;
+    border-radius: 5px;
+    border: 0;
+    padding: 5px;
+    width: auto;
+  }
+  
+  button:hover {
+    background-color: DarkSlateGray;
+  }
+  
+  .buttonless{
+    background: none !important;
+    border: none !important;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    color: blue;
+  }
