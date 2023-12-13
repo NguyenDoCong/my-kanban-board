@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import Comment from "./Comment.jsx";
 import styles from "./css/Dialog.module.css";
 import Members from "./Members.jsx";
+import Categories from "./Categories.jsx";
 
 function Dialog({
   show,
@@ -22,6 +23,7 @@ function Dialog({
   onDeleteComment,
   onEditComment,
   onShowSnackbar,
+  // selectedCategory
   // currentUser,
 }) {
   if (!show) return null;
@@ -151,20 +153,22 @@ function Dialog({
     // onClose(); // Đóng dialog sau khi lưu thành công
   };
 
+  const [changeCat, setChangeCat] = useState();
+
   const handleCategoryButtonClick = (commentId, editedText) => {
-    e.preventDefault(); // Ngăn chặn sự kiện mặc định của nút "Thêm"
-
-    const member_id_list = memberList.map((member) => member.id);
-
-    // if (formData.member == user.profile.id) {
-    onUpdateCategory(
-      issue.id,
-      // description
-      // selectedMember?.id || null,
-      selectedCategory?.id || null
-      // newComment,
-      // member_id_list
-    );
+    // e.preventDefault(); // Ngăn chặn sự kiện mặc định của nút "Thêm"
+    setChangeCat(!changeCat);
+    // const member_id_list = memberList.map((member) => member.id);
+    console.log("selectedCategory:", selectedCategory);
+    // // if (formData.member == user.profile.id) {
+    // onUpdateCategory(
+    //   issue.id,
+    //   // description
+    //   // selectedMember?.id || null,
+    //   selectedCategory?.id || null
+    //   // newComment,
+    //   // member_id_list
+    // );
 
     // loadIssue(issue.id);
   };
@@ -215,8 +219,6 @@ function Dialog({
     // setComments(updatedComments);
   };
 
-  
-
   // const handleSelectAllChange = () => {
   //   // Toggle chế độ chọn tất cả và làm mới danh sách thành viên được chọn
   //   setSelectAll(!selectAll);
@@ -258,10 +260,19 @@ function Dialog({
               <label>Summary:</label>
               <br></br>
 
-              <textarea
+              {/* <textarea
                 name="description"
                 value={description}
                 onChange={handleDesChange}
+              /> */}
+
+              <Comment
+                // key={comment.id}
+                // comment={comment}
+                onEdit={handleCommentEdit}
+                onDeleteComment={handleCommentDelete}
+                issue
+                // loadIssue
               />
 
               <br></br>
@@ -374,14 +385,12 @@ function Dialog({
                   Members
                 </button>
 
-                <Members 
-                issueMembers={issueMembers} 
-                isEditing={isEditing}
-                handleAddMember={handleAddMember}
-                projectMembers={projectMembers}
+                <Members
+                  issueMembers={issueMembers}
+                  isEditing={isEditing}
+                  handleAddMember={handleAddMember}
+                  projectMembers={projectMembers}
                 />
-
-                
               </div>
               {/* <button onClick={handleDeleteMember}>Delete</button> */}
             </div>
@@ -410,6 +419,12 @@ function Dialog({
               </select> */}
               <div className={styles.customButton}>
                 <button onClick={handleCategoryButtonClick}>Categories</button>
+                <Categories
+                  selectedCategory={selectedCategory}
+                  changeCat={changeCat}
+                  handleAddMember={handleAddMember}
+                  categories={categories}
+                />
               </div>
             </div>
           </div>

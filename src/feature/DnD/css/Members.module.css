@@ -1,16 +1,19 @@
 .checkboxContainer {
   /* display: flex;
     align-items: center; */
-    background: gray;
-    color: aliceblue;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 50%;
-    height: auto;
-    max-height: 500px; /* Đặt chiều cao tối đa của dialog */
-    overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
+  position: fixed;
+  /* top: 0;
+  left: 0; */
+  background: gray;
+  color: aliceblue;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 10%;
+  height: auto;
+  max-height: 500px; /* Đặt chiều cao tối đa của dialog */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
 }
 
 /* Style the checkbox */
@@ -20,7 +23,8 @@
 
 /* Style the label for the checkbox */
 .checkboxContainer label {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
+  font-family: "Quicksand", sans-serif;
+  font-size: 13px;
+
   /* color: #333; */
 }

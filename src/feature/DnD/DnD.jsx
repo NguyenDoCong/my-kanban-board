@@ -51,7 +51,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-  background: isDragging ? "lightgreen" : "DarkSlateGray",
+  background: isDragging ? "lightgreen" : "dimgray",
   ...draggableStyle,
 });
 
@@ -145,7 +145,45 @@ function DnD() {
 
   const [selectedNewMember, setSelectedNewMember] = useState([]);
 
-  const [categories, setCategories] = useState([]);
+  const cat = {
+    id: 101,
+    avatar_url: null,
+    project_name: "demo_project_1",
+    description: null,
+    client: null,
+    budget: null,
+    start_date: "2023-11-01T08:53:57.222674+07:00",
+    end_date: null,
+    created_by: [
+      {
+        id: 101,
+        user_name: "demo1",
+      },
+    ],
+    assigned_to: [
+      {
+        id: 102,
+        user_name: "demo2",
+      },
+    ],
+    category: ["Task", "Bug", "Suggestion", "Feature", "Others"],
+    member: [
+      {
+        id: 103,
+        user_name: "demo3",
+      },
+      {
+        id: 102,
+        user_name: "demo2",
+      },
+      {
+        id: 101,
+        user_name: "demo1",
+      },
+    ],
+  };
+
+  const [categories, setCategories] = useState(cat.category);
 
   // const loadCategories = () => {
   //   getCategories(prjId).then((res) => {
@@ -264,6 +302,16 @@ function DnD() {
     setIssueMembers(detailedIssue.members);
   }, []);
 
+  // const [selectedCategory, setSelectedCategory] = useState();
+
+  // useEffect(() => {
+  //   // loadData();
+  //   // loadMembers();
+  //   // loadCategories();
+  //   // loadNewMembers();
+  //   setSelectedCategory(detailedIssue.category);
+  // }, []);
+
   useEffect(() => {
     // console.log(issueMembers); // Log giá trị mới sau khi cập nhậ
     // const member_id_list = issueMembers.map((member) => member.id);
@@ -348,7 +396,6 @@ function DnD() {
     // setStatusInfo(droppableId);
     setIsCreateDialogOpen(false);
     setOpenDroppable(null);
-
   };
 
   const handleIssueClick = async (issue) => {
@@ -804,9 +851,9 @@ function DnD() {
                               >
                                 {item.issue_name}
                                 <div>
-                                  <p>
-                                    {/* Assigned Member: {item.assigned_to.user_name} */}
-                                  </p>
+                                  {/* <p>
+                                    Assigned Member: {item.assigned_to.user_name}
+                                  </p> */}
                                   {/* <ul>
                                                                     {item.teamMembers && item.teamMembers.map((member) => (
                                                                         <li key={member.id}>{member.name}</li>
@@ -814,8 +861,8 @@ function DnD() {
                                                                 </ul> */}
                                 </div>
 
-                                {item.category && item.category.category_name}
-                                <br></br>
+                                {/* {item.category && item.category.category_name}
+                                <br></br> */}
                                 {/* {item.summary} */}
                                 {/* {item.description} */}
                               </div>
@@ -834,7 +881,9 @@ function DnD() {
                               placeholder="Enter a title for this issue"
                               onChange={handleAddIssue}
                             />
-                            <button onClick={handleCreateButtonClick}>Add</button>
+                            <button onClick={handleCreateButtonClick}>
+                              Add
+                            </button>
                             <button onClick={handleCancelClick}>X</button>
                           </div>
                         ) : (
@@ -865,6 +914,7 @@ function DnD() {
           issueMembers={issueMembers}
           onAddMember={addMember}
           issue={detailedIssue}
+          // selectedCategory={selectedCategory}
           // onDeleteIssue={removeIssue}
           // onUpdateIssue={updateIssue}
           // onAddComment={addComment}

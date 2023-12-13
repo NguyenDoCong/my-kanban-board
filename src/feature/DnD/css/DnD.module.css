@@ -101,7 +101,7 @@ button {
 }
 
 button:hover {
-  background-color: DarkSlateGray;
+  background-color: dimgray;
 }
 
 .buttonless {
