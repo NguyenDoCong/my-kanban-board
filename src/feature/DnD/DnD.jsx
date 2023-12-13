@@ -714,8 +714,9 @@ function DnD() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.topBar}>
-        {/* <h1>{prjName}</h1>
+      <div className={styles.Container}>
+        <div className={styles.topBar}>
+          {/* <h1>{prjName}</h1>
         {members.map((member, index) => (
           <span key={member.id}>
             {member.member.user_name}
@@ -723,7 +724,7 @@ function DnD() {
           </span>
         ))} */}
 
-        {/* <select
+          {/* <select
           onChange={(e) => {
             const memberId = e.target.value;
 
@@ -739,118 +740,124 @@ function DnD() {
             </option>
           ))}
         </select> */}
-        {/* <button onClick={handleAddPrjMem(selectedNewMember)}>Add</button> */}
-      </div>
+          {/* <button onClick={handleAddPrjMem(selectedNewMember)}>Add</button> */}
+        </div>
 
-      <div style={{ display: "flex" }}>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {/* {[1, 2, 3, 4, 5].map((ind) => ( */}
-          {Object.entries(state).map(([status, items], ind) => (
-            <Droppable key={ind} droppableId={status}>
-              {(provided, snapshot) => (
-                <div className={styles.droppable}>
-                  <div
-                    ref={provided.innerRef}
-                    className={styles.listContainer}
-                    // style={getListStyle(snapshot.isDraggingOver, state[`droppable${ind}`].items.length)}
-                    style={getListStyle(snapshot.isDraggingOver, items.length)}
-                    {...provided.droppableProps}
-                  >
-                    {/* <h3>{state[`droppable${ind}`].title}</h3>  */}
-                    {/* Hiển thị title */}
-                    <h3>{status}</h3>
+        <div style={{ display: "flex" }}>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {/* {[1, 2, 3, 4, 5].map((ind) => ( */}
+            {Object.entries(state).map(([status, items], ind) => (
+              <Droppable key={ind} droppableId={status}>
+                {(provided, snapshot) => (
+                  <div className={styles.droppable}>
+                    <div
+                      ref={provided.innerRef}
+                      className={styles.listContainer}
+                      // style={getListStyle(snapshot.isDraggingOver, state[`droppable${ind}`].items.length)}
+                      style={getListStyle(
+                        snapshot.isDraggingOver,
+                        items.length
+                      )}
+                      {...provided.droppableProps}
+                    >
+                      {/* <h3>{state[`droppable${ind}`].title}</h3>  */}
+                      {/* Hiển thị title */}
+                      <h3>{status}</h3>
 
-                    {/* {state[`droppable${ind}`].items.map((item, index) => ( */}
-                    {items.map((item, index) => (
-                      <Draggable
-                        key={item.id.toString()}
-                        draggableId={item.id.toString()}
-                        index={index}
-                      >
-                        {/* <Draggable key={item.id} draggableId={item.id} index={index}> */}
-                        {(provided, snapshot) => (
-                          <div
-                            className={styles.issue}
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={getItemStyle(
-                              snapshot.isDragging,
-                              provided.draggableProps.style
-                            )}
-                          >
+                      {/* {state[`droppable${ind}`].items.map((item, index) => ( */}
+                      {items.map((item, index) => (
+                        <Draggable
+                          key={item.id.toString()}
+                          draggableId={item.id.toString()}
+                          index={index}
+                        >
+                          {/* <Draggable key={item.id} draggableId={item.id} index={index}> */}
+                          {(provided, snapshot) => (
                             <div
-                              key={item.id}
-                              onClick={() => handleIssueClick(item)}
+                              className={styles.issue}
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={getItemStyle(
+                                snapshot.isDragging,
+                                provided.draggableProps.style
+                              )}
                             >
-                              {item.issue_name}
-                              <div>
-                                <p>
-                                  {/* Assigned Member: {item.assigned_to.user_name} */}
-                                </p>
-                                {/* <ul>
+                              <div
+                                key={item.id}
+                                onClick={() => handleIssueClick(item)}
+                              >
+                                {item.issue_name}
+                                <div>
+                                  <p>
+                                    {/* Assigned Member: {item.assigned_to.user_name} */}
+                                  </p>
+                                  {/* <ul>
                                                                     {item.teamMembers && item.teamMembers.map((member) => (
                                                                         <li key={member.id}>{member.name}</li>
                                                                     ))}
                                                                 </ul> */}
+                                </div>
+
+                                {item.category && item.category.category_name}
+                                <br></br>
+                                {/* {item.summary} */}
+                                {/* {item.description} */}
                               </div>
-
-                              {item.category && item.category.category_name}
-                              <br></br>
-                              {/* {item.summary} */}
-                              {/* {item.description} */}
                             </div>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                    {/* <button onClick={() => handleCreateIssue(`droppable${ind}`)}>+ Add Issue</button> */}
-                    <button
-                      onClick={() =>
-                        handleCreateButtonClick(convertValue(status))
-                      }
-                    >
-                      + Add Issue
-                    </button>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                      {/* <button onClick={() => handleCreateIssue(`droppable${ind}`)}>+ Add Issue</button> */}
+                      <button
+                        onClick={() =>
+                          handleCreateButtonClick(convertValue(status))
+                        }
+                      >
+                        + Add Issue
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </Droppable>
-          ))}
-        </DragDropContext>
-      </div>
-      <Dialog
-        show={isDialogOpen}
-        onClose={closeDialog}
-        projectMembers={members}
-        categories={categories}
-        issueMembers={issueMembers}
-        onAddMember={addMember}
-        issue={detailedIssue}
-        // onDeleteIssue={removeIssue}
-        // onUpdateIssue={updateIssue}
-        // onAddComment={addComment}
-        // currentUser={user}
-        // prjId={prjId}
-        // detailedIssue={detailedIssue}
-        // // droppableId={droppableId}
-        // // onLogin={handleLogin}
-        // onDeleteComment={deleteComment}
-        // onEditComment={updateComment}
-        onShowSnackbar={handleShowSnackbar}
-        // onUpdateCategory={updateCategory}
-      />
+                )}
+              </Droppable>
+            ))}
+          </DragDropContext>
+        </div>
+        <Dialog
+          show={isDialogOpen}
+          onClose={closeDialog}
+          projectMembers={members}
+          categories={categories}
+          issueMembers={issueMembers}
+          onAddMember={addMember}
+          issue={detailedIssue}
+          // onDeleteIssue={removeIssue}
+          // onUpdateIssue={updateIssue}
+          // onAddComment={addComment}
+          // currentUser={user}
+          // prjId={prjId}
+          // detailedIssue={detailedIssue}
+          // // droppableId={droppableId}
+          // // onLogin={handleLogin}
+          // onDeleteComment={deleteComment}
+          // onEditComment={updateComment}
+          onShowSnackbar={handleShowSnackbar}
+          // onUpdateCategory={updateCategory}
+        />
 
-      <div>
-        {showSnackbar && <Snackbar message={snackBarMessage} duration={3000} />}
-        {/* {draggedItemInfo && (
+        <div>
+          {showSnackbar && (
+            <Snackbar message={snackBarMessage} duration={3000} />
+          )}
+          {/* {draggedItemInfo && (
                     <p>
                         Item ID: {draggedItemInfo.itemId}, Destination Droppable: {draggedItemInfo.destinationDroppable}
                     </p>
                 )} */}
 
-        {/* Các phần khác trong JSX */}
+          {/* Các phần khác trong JSX */}
+        </div>
       </div>
     </div>
   );
