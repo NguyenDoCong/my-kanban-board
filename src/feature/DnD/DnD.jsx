@@ -275,6 +275,11 @@ function DnD() {
     // changeIssue
   };
 
+  const [addIssue, setAddIssue] = useState();
+  const handleAddIssue = (e) => {
+    setAddIssue(e.target.value);
+  };
+
   // const addIssue = async (prjId, issueName, catId, summary, status_id) => {
   //   // console.log("trc goi api:", prjId, issueName, catId, summary, status_id);
   //   await createIssue(prjId, issueName, catId, summary, status_id);
@@ -336,6 +341,14 @@ function DnD() {
     // console.log(prjId);
     setStatusInfo(droppableId);
     setIsCreateDialogOpen(true);
+  };
+
+  const handleCancelClick = () => {
+    // console.log(prjId);
+    // setStatusInfo(droppableId);
+    setIsCreateDialogOpen(false);
+    setOpenDroppable(null);
+
   };
 
   const handleIssueClick = async (issue) => {
@@ -712,6 +725,8 @@ function DnD() {
     // loadData();
   }
 
+  const [openDroppable, setOpenDroppable] = useState(null);
+
   return (
     <div className={styles.page}>
       <div className={styles.Container}>
@@ -810,13 +825,31 @@ function DnD() {
                       ))}
                       {provided.placeholder}
                       {/* <button onClick={() => handleCreateIssue(`droppable${ind}`)}>+ Add Issue</button> */}
-                      <button
-                        onClick={() =>
-                          handleCreateButtonClick(convertValue(status))
-                        }
-                      >
-                        + Add Issue
-                      </button>
+                      <div>
+                        {openDroppable === status ? (
+                          <div>
+                            <textarea
+                              className={styles.thistextarea}
+                              value={addIssue}
+                              placeholder="Enter a title for this issue"
+                              onChange={handleAddIssue}
+                            />
+                            <button onClick={handleCreateButtonClick}>Add</button>
+                            <button onClick={handleCancelClick}>X</button>
+                          </div>
+                        ) : (
+                          <div>
+                            <button
+                              onClick={() => {
+                                setOpenDroppable(status);
+                                // Add any other logic you need when opening the textarea
+                              }}
+                            >
+                              + Add Issue
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}

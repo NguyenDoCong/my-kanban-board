@@ -94,9 +94,9 @@
 button {
   background-color: black;
   color: gainsboro;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   border: 0;
-  padding: 5px;
+  /* padding: 2px; */
   width: auto;
 }
 
@@ -111,4 +111,18 @@ button:hover {
   font: inherit;
   cursor: pointer;
   color: blue;
+}
+
+.thistextarea{
+  /* width: 100%; */
+  max-width: 90%;
+  overflow: auto; /* Hiển thị thanh cuộn khi nội dung vượt quá kích thước textarea */
+
+}
+
+.thistextarea::placeholder {
+  color: gainsboro; /* Màu sắc của placeholder */
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+
 }
