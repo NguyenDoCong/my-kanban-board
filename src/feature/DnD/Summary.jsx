@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from './css/Dialog.module.css';
+import styles from "./css/Dialog.module.css";
 
 function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedText, setEditedText] = useState(comment.description);
+  const [editedText, setEditedText] = useState();
 
   // useEffect(() => {
   //   // console.log(editedText);
@@ -18,7 +18,7 @@ function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
 
   const handleSaveClick = () => {
     // Call the onEdit callback with the edited text
-    onEdit(comment.id, editedText);
+    // onEdit(comment.id, editedText);
     loadIssue(issue.id);
     setIsEditing(false);
   };
@@ -27,7 +27,7 @@ function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
     event.preventDefault();
 
     setIsEditing(false);
-    setEditedText(comment.description);
+    // setEditedText(comment.description);
   };
 
   const handleTextChange = (e) => {
@@ -37,13 +37,6 @@ function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
   const handleCommentDelete = (commentId) => {
     onDeleteComment(commentId); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
   };
-
-  const dateTime = new Date(comment.created_at);
-
-  const formattedDate = `${dateTime.getDate()}/${
-    dateTime.getMonth() + 1
-  }/${dateTime.getFullYear()}`;
-  // const formattedTime = `${dateTime.getHours()}:${dateTime.getMinutes()}`;
 
   return (
     <div>
@@ -55,21 +48,11 @@ function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
         </div>
       ) : (
         <div>
-          <p>
-            <span>{comment.commenter.user_name}</span> 
-            <span> </span>
-            <span>{formattedDate}</span>
-          </p>
-          <p>{comment.description}</p>
-          <button onClick={handleEditClick} className={styles.buttonless}>
-            Edit
-          </button>
-          <button
-            onClick={() => handleCommentDelete(comment.id)}
-            className={styles.buttonless}
-          >
-            Delete
-          </button>
+          <textarea readOnly={true}
+            className={styles.summaryInit}
+            placeholder="Add a more detailed description..."
+            onClick={handleEditClick}
+          ></textarea>
         </div>
       )}
     </div>

@@ -45,7 +45,7 @@ textarea {
 }
 
 .dialogContent {
-  background: dimgray;
+  background: #282828;
   color: aliceblue;
   padding: 20px;
   border-radius: 5px;
@@ -126,8 +126,43 @@ textarea {
   padding: 0px;
 }
 
+.rightDiv button {
+  margin: 10px;
+  padding: 5px 10px;
+  background: #404040;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* max-width: 10%; */
+}
+
 .clearfix::after {
   content: "";
   display: table;
   clear: both;
+}
+
+.summaryInit{
+  background-color: #404040;
+  border: none;
+  resize: none;
+
+}
+
+.initComment{
+  background-color: #181818;
+  padding: 10px;
+
+}
+
+.floatRight{
+  float: right;
+  box-sizing: border-box;
+
+}
+
+.closeButton{
+  background-color: #282828 !important;
+
 }

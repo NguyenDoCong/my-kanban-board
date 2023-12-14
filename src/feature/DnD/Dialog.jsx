@@ -7,6 +7,7 @@ import Comment from "./Comment.jsx";
 import styles from "./css/Dialog.module.css";
 import Members from "./Members.jsx";
 import Categories from "./Categories.jsx";
+import Summary from "./Summary.jsx";
 
 function Dialog({
   show,
@@ -266,7 +267,7 @@ function Dialog({
                 onChange={handleDesChange}
               /> */}
 
-              <Comment
+              <Summary
                 // key={comment.id}
                 // comment={comment}
                 onEdit={handleCommentEdit}
@@ -283,9 +284,9 @@ function Dialog({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           /> */}
-              <button type="submit" onClick={handleSave}>
+              {/* <button type="submit" onClick={handleSave}>
                 Save
-              </button>
+              </button> */}
 
               <div>
                 <label>Comments:</label>
@@ -324,31 +325,42 @@ function Dialog({
                     />
                   ))}
                 </div>
-                <textarea
-                  name="comment"
-                  value={newComment}
-                  onChange={handleCommentChange}
+                <p className={styles.initComment}>Add your comment here</p>
+                {/* <p
+                  // name="comment"
+                  // value={newComment}
+                  // onChange={handleCommentChange}
                   placeholder="Add your comment here"
-                />
+                /> */}
                 {/* <button onClick={handleCommentSubmit}>Submit</button> */}
               </div>
-              <div className={styles.customButton}>
+              {/* <div className={styles.customButton}>
                 <button type="submit" onClick={handleCommentSave}>
                   Save
                 </button>
-              </div>
+              </div> */}
 
               {/* <button type="button" onClick={handleDelete}>
             Delete
           </button> */}
-              <button type="button" onClick={onClose}>
-                Close
-              </button>
             </form>
           </div>
         </div>
         <div className={styles.rightDiv}>
-          <p>Add to card</p>
+          <div className={styles.floatRight}>
+            <button
+              className={styles.closeButton}
+              // type="button"
+              onClick={onClose}
+            >
+              X
+            </button>
+          </div>
+          <div className={styles.clearfix}></div>
+
+          <div>
+            <p>Add to card</p>
+          </div>
 
           <div>
             {/* Hiển thị danh sách thành viên ở đây */}
