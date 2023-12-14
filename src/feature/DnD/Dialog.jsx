@@ -8,6 +8,7 @@ import styles from "./css/Dialog.module.css";
 import Members from "./Members.jsx";
 import Categories from "./Categories.jsx";
 import Summary from "./Summary.jsx";
+import NewComment from "./NewComment.jsx";
 
 function Dialog({
   show,
@@ -205,19 +206,19 @@ function Dialog({
 
   const handleCommentEdit = (commentId, editedText) => {
     // Find the comment by its ID
-    onEditComment(commentId, editedText); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
+    // onEditComment(commentId, editedText); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
 
     // loadIssue(issue.id);
 
     // console.log(editedText);
-    // const updatedComments = comments.map((comment) => {
-    //   if (comment.id === commentId) {
-    //     return { ...comment, text: editedText };
-    //   }
-    //   return comment;
-    // });
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === commentId) {
+        return { ...comment, text: editedText };
+      }
+      return comment;
+    });
 
-    // setComments(updatedComments);
+    setComments(updatedComments);
   };
 
   // const handleSelectAllChange = () => {
@@ -241,20 +242,20 @@ function Dialog({
           <div>
             <h3>{issue.issue_name}</h3>
             <form onSubmit={handleSubmit}>
-              <label> Members</label>
-              <p>
+              <label> Members: </label>
+              <span>
                 {issue.members &&
                   issue.members.length > 0 &&
                   issue.members.map((member, index) => (
                     <span key={member.id}>
                       {member.user_name}
-                      {index < issue.members.length - 1 ? ", " : ""}
+                      {index < issue.members.length - 1 ? ", " : " "}
                     </span>
                   ))}
                 {/* {issueMembers && issueMembers.user_name} */}
-              </p>
+              </span>
 
-              <label>Category:</label>
+              <label>Category: </label>
               <span>{selectedCategory && selectedCategory.category_name}</span>
               <br></br>
 
@@ -275,8 +276,6 @@ function Dialog({
                 issue
                 // loadIssue
               />
-
-              <br></br>
               {/* <button onClick={handleSave}>Save</button> */}
               {/* 
           <textarea
@@ -290,6 +289,7 @@ function Dialog({
 
               <div>
                 <label>Comments:</label>
+                <br></br>
                 {/* <ul>
               {issue.comment &&
                 issue.comment.map((comment) => (
@@ -314,6 +314,7 @@ function Dialog({
                 ))}
             </ul> */}
                 <div>
+                  <NewComment className={styles.initComment} />
                   {comments.map((comment) => (
                     <Comment
                       key={comment.id}
@@ -325,11 +326,10 @@ function Dialog({
                     />
                   ))}
                 </div>
-                <p className={styles.initComment}>Add your comment here</p>
-                {/* <p
-                  // name="comment"
-                  // value={newComment}
-                  // onChange={handleCommentChange}
+                {/* <textarea
+                  name="comment"
+                  value={newComment}
+                  onChange={handleCommentChange}
                   placeholder="Add your comment here"
                 /> */}
                 {/* <button onClick={handleCommentSubmit}>Submit</button> */}
@@ -357,89 +357,24 @@ function Dialog({
             </button>
           </div>
           <div className={styles.clearfix}></div>
+          <p>Add to card</p>
 
-          <div>
-            <p>Add to card</p>
-          </div>
-
-          <div>
-            {/* Hiển thị danh sách thành viên ở đây */}
-
-            {/* <label>Assigned Member: {formData.member}</label> */}
-            <div className={styles.issueMembers}>
-              {/* {projectMembers.map((projectMember, index) => (
-                <span key={{projectMember.id}}>
-                  {projectMember.name}
-                  {index < projectMembers.length - 1 ? ", " : ""}
-                </span>
-              ))} */}
-              {/* <select
-                // value={issue.assigned_to.user_name}
-                onChange={(e) => {
-                  const memberId = e.target.value;
-
-                  const selected = projectMembers.find(
-                    (member) => member.member.id == memberId
-                  );
-                  // console.log(selected);
-                  setSelectedMember(selected.member);
-                  // console.log(selectedMember.user_name); // Log giá trị mới của selectedMember
-                }}
-              >
-                {projectMembers.map((member) => (
-                  <option key={member.member.id} value={member.member.id}>
-                    {member.member.user_name}
-                  </option>
-                ))}
-              </select> */}
-              <div className={styles.customButton}>
-                <button type="submit" onClick={handleEditClick}>
-                  Members
-                </button>
-
-                <Members
-                  issueMembers={issueMembers}
-                  isEditing={isEditing}
-                  handleAddMember={handleAddMember}
-                  projectMembers={projectMembers}
-                />
-              </div>
-              {/* <button onClick={handleDeleteMember}>Delete</button> */}
-            </div>
-
-            <div>
-              {/* <p>Members: {selectedMember && selectedMember.user_name}</p> */}
-
-              {/* <select
-                // value={selectedCategory}
-                onChange={(e) => {
-                  const categoryId = e.target.value;
-
-                  const selected = categories.find(
-                    (category) => category.id == categoryId
-                  );
-                  // console.log(selected);
-                  setSelectedCategory(selected);
-                  // console.log(selectedMember); // Log giá trị mới của selectedMember
-                }}
-              >
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.category_name}
-                  </option>
-                ))}
-              </select> */}
-              <div className={styles.customButton}>
-                <button onClick={handleCategoryButtonClick}>Categories</button>
-                <Categories
-                  selectedCategory={selectedCategory}
-                  changeCat={changeCat}
-                  handleAddMember={handleAddMember}
-                  categories={categories}
-                />
-              </div>
-            </div>
-          </div>
+          <button type="submit" onClick={handleEditClick}>
+            Members
+          </button>
+          <Members
+            issueMembers={issueMembers}
+            isEditing={isEditing}
+            handleAddMember={handleAddMember}
+            projectMembers={projectMembers}
+          />
+          <button onClick={handleCategoryButtonClick}>Categories</button>
+          <Categories
+            selectedCategory={selectedCategory}
+            changeCat={changeCat}
+            handleAddMember={handleAddMember}
+            categories={categories}
+          />
         </div>
         <div className={styles.clearfix}></div>
       </div>
