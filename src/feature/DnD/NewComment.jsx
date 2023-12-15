@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./css/Dialog.module.css";
 
-function NewComment({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
+function NewComment({ addComment }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState();
+  const [clickedTime, setClickedTime] = useState(null);
 
   // useEffect(() => {
   //   // console.log(editedText);
@@ -18,8 +19,10 @@ function NewComment({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
 
   const handleSaveClick = () => {
     // Call the onEdit callback with the edited text
-    onEdit(comment.id, editedText);
-    loadIssue(issue.id);
+    const currentTime = new Date();
+    setClickedTime(currentTime);
+    addComment(currentTime, editedText);
+    // loadIssue(issue.id);
     setIsEditing(false);
   };
 

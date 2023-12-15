@@ -10,7 +10,7 @@ function Comment({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
   useEffect(() => {
     // console.log("comment:",comment);
     //Runs only on the first render
-  }, []);
+  }, [comment]);
 
   const handleEditClick = (event) => {
     event.preventDefault();

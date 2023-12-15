@@ -25,6 +25,7 @@ function Dialog({
   onDeleteComment,
   onEditComment,
   onShowSnackbar,
+  changeSummary,
   // selectedCategory
   // currentUser,
 }) {
@@ -37,7 +38,7 @@ function Dialog({
 
   useEffect(() => {
     // setMemberList(issue.member);
-    console.log("issueMembers:", issueMembers);
+    console.log("changeSummary:", issue.summary);
   }, [issue]);
 
   // const handleInputChange = (event) => {
@@ -47,7 +48,7 @@ function Dialog({
   //     [name]: value,
   //   }));
   // };
-  const [newComment, setNewComment] = useState();
+  // const [newComment, setNewComment] = useState();
 
   const [selectedCategory, setSelectedCategory] = useState(issue.category);
 
@@ -55,9 +56,9 @@ function Dialog({
     setDescription(event.target.value);
   };
 
-  const handleCommentChange = (event) => {
-    setNewComment(event.target.value); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
-  };
+  // const handleCommentChange = (event) => {
+  //   setNewComment(event.target.value); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
+  // };
 
   // const handleCommentEdit = (commentId) => {
   //   onEditComment(commentId); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
@@ -181,14 +182,14 @@ function Dialog({
     // const member_id_list = memberList.map((member) => member.id);
 
     // if (formData.member == user.profile.id) {
-    onAddComment(
-      issue.id,
-      // description
-      // selectedMember?.id || null,
-      // selectedCategory?.id || null,
-      newComment
-      // member_id_list
-    );
+    // onAddComment(
+    //   issue.id,
+    //   // description
+    //   // selectedMember?.id || null,
+    //   // selectedCategory?.id || null,
+    //   newComment
+    //   // member_id_list
+    // );
     // } else {
     //   // console.log(newComment);
     //   onAddComment(formData.title, newComment);
@@ -203,6 +204,16 @@ function Dialog({
   // }, [memberList]);
 
   const [comments, setComments] = useState(issue.comment);
+
+  // const [maxID, setMaxID] = useState(200);
+
+  const addComment = (currentTime, editedText) => {
+    onAddComment(currentTime, editedText);
+  };
+
+  const onChangeSummary = (editedText) => {
+    changeSummary(editedText);
+  }
 
   const handleCommentEdit = (commentId, editedText) => {
     // Find the comment by its ID
@@ -271,9 +282,10 @@ function Dialog({
               <Summary
                 // key={comment.id}
                 // comment={comment}
-                onEdit={handleCommentEdit}
-                onDeleteComment={handleCommentDelete}
-                issue
+                changeSummary={onChangeSummary}
+                detailedSummary={issue.summary}
+                // onDeleteComment={handleCommentDelete}
+                // issue
                 // loadIssue
               />
               {/* <button onClick={handleSave}>Save</button> */}
@@ -314,14 +326,18 @@ function Dialog({
                 ))}
             </ul> */}
                 <div>
-                  <NewComment className={styles.initComment} />
-                  {comments.map((comment) => (
+                  <NewComment
+                    className={styles.initComment}
+                    addComment={addComment}
+                  />
+                </div>
+                <div>
+                  {issue.comment.map((comment) => (
                     <Comment
                       key={comment.id}
                       comment={comment}
-                      onEdit={handleCommentEdit}
-                      onDeleteComment={handleCommentDelete}
-                      issue
+                      // onDeleteComment={handleCommentDelete}
+                      // issue
                       // loadIssue
                     />
                   ))}

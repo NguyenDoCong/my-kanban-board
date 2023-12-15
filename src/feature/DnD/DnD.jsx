@@ -365,11 +365,44 @@ function DnD() {
   //   }
   // };
 
-  // const addComment = async (issueId, newComment) => {
-  //   await createComment(issueId, newComment);
-  //   loadIssue(selectedIssue.id);
-  // };
+  const addComment = (currentTime, editedText) => {
+    const newComment = {
+      id: Math.max(...detailedIssue.comment.map((comment) => comment.id), 0) + 1,
+      commenter: {
+        user_name: "CongND",
+      },
+      description: editedText,
+      created_at: currentTime.toISOString(),
+      updated_at: null,
+      commented_issue: 102,
+    };
 
+    // Tạo một bản sao của detailedIssue và thêm comment mới vào mảng comment
+    const updatedDetailedIssue = {
+      ...detailedIssue,
+      comment: [...detailedIssue.comment, newComment],
+    };
+
+    // Cập nhật state với detailedIssue mới
+    setDetailedIssue(updatedDetailedIssue);
+    // await createComment(issueId, newComment);
+    // loadIssue(selectedIssue.id);
+  };
+
+  const changeSummary = (editedText) => {
+    const updatedDetailedIssue = {
+      ...detailedIssue,
+      summary: editedText,
+    };
+
+    // Cập nhật state với detailedIssue mới
+    setDetailedIssue(updatedDetailedIssue);
+  }
+
+  useEffect(() => {
+    // console.log(issueMembers); // Log giá trị mới sau khi cập nhậ
+    // const member_id_list = issueMembers.map((member) => member.id);
+  }, [detailedIssue]);
   // const updateComment = async (id, commentId) => {
   //   await editComment(id, commentId);
   //   loadIssue(selectedIssue.id);
@@ -917,7 +950,7 @@ function DnD() {
           // selectedCategory={selectedCategory}
           // onDeleteIssue={removeIssue}
           // onUpdateIssue={updateIssue}
-          // onAddComment={addComment}
+          onAddComment={addComment}
           // currentUser={user}
           // prjId={prjId}
           // detailedIssue={detailedIssue}
@@ -927,6 +960,7 @@ function DnD() {
           // onEditComment={updateComment}
           onShowSnackbar={handleShowSnackbar}
           // onUpdateCategory={updateCategory}
+          changeSummary={changeSummary}
         />
 
         <div>

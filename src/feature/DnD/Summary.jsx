@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./css/Dialog.module.css";
 
-function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
+function Summary({ changeSummary, detailedSummary }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState();
 
@@ -18,8 +18,8 @@ function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
 
   const handleSaveClick = () => {
     // Call the onEdit callback with the edited text
-    // onEdit(comment.id, editedText);
-    loadIssue(issue.id);
+    changeSummary(editedText);
+    // loadIssue(issue.id);
     setIsEditing(false);
   };
 
@@ -34,10 +34,6 @@ function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
     setEditedText(e.target.value);
   };
 
-  const handleCommentDelete = (commentId) => {
-    onDeleteComment(commentId); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
-  };
-
   return (
     <div>
       {isEditing ? (
@@ -48,10 +44,16 @@ function Summary({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
         </div>
       ) : (
         <div>
-          <textarea readOnly={true}
+          <textarea
+            readOnly={!isEditing}
             className={styles.summaryInit}
-            placeholder="Add a more detailed description..."
+            placeholder={
+              detailedSummary === null
+                ? "Add a more detailed description..."
+                : ""
+            }
             onClick={handleEditClick}
+            value={detailedSummary !== null ? detailedSummary : ""}
           ></textarea>
         </div>
       )}
