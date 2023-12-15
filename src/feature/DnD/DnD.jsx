@@ -367,7 +367,8 @@ function DnD() {
 
   const addComment = (currentTime, editedText) => {
     const newComment = {
-      id: Math.max(...detailedIssue.comment.map((comment) => comment.id), 0) + 1,
+      id:
+        Math.max(...detailedIssue.comment.map((comment) => comment.id), 0) + 1,
       commenter: {
         user_name: "CongND",
       },
@@ -397,26 +398,54 @@ function DnD() {
 
     // Cập nhật state với detailedIssue mới
     setDetailedIssue(updatedDetailedIssue);
-  }
+  };
 
   useEffect(() => {
     // console.log(issueMembers); // Log giá trị mới sau khi cập nhậ
     // const member_id_list = issueMembers.map((member) => member.id);
   }, [detailedIssue]);
-  // const updateComment = async (id, commentId) => {
-  //   await editComment(id, commentId);
-  //   loadIssue(selectedIssue.id);
-  // };
+
+  const updateComment = (commentId, editedText) => {
+    // await editComment(id, commentId);
+    // loadIssue(selectedIssue.id);
+    const updatedComments = detailedIssue.comment.map((comment) => {
+      if (comment.id === commentId) {
+        // Thay đổi mô tả của comment
+        return {
+          ...comment,
+          description: editedText,
+          // Bạn cũng có thể cập nhật trường updated_at nếu cần
+          // updated_at: new Date().toISOString(),
+        };
+      }
+      return comment;
+    });
+
+    // Cập nhật state với comments mới
+    setDetailedIssue((prevState) => ({
+      ...prevState,
+      comment: updatedComments,
+    }));
+  };
 
   // const updateCategory = async (id, category_id) => {
   //   await changeIssue(id, category_id);
   //   loadIssue(selectedIssue.id);
   // };
 
-  // const deleteComment = async (commentId) => {
-  //   await removeComment(commentId);
-  //   loadData();
-  // };
+  const deleteComment = (commentId) => {
+    // await removeComment(commentId);
+    // loadData();
+    const updatedComments = detailedIssue.comment.filter(
+      (comment) => comment.id !== commentId
+    );
+
+    // Cập nhật state với danh sách comment mới (đã xóa comment cần xóa)
+    setDetailedIssue((prevState) => ({
+      ...prevState,
+      comment: updatedComments,
+    }));
+  };
 
   const handleCreateButtonClick = (droppableId) => {
     // console.log(prjId);
@@ -956,8 +985,8 @@ function DnD() {
           // detailedIssue={detailedIssue}
           // // droppableId={droppableId}
           // // onLogin={handleLogin}
-          // onDeleteComment={deleteComment}
-          // onEditComment={updateComment}
+          onDeleteComment={deleteComment}
+          onEditComment={updateComment}
           onShowSnackbar={handleShowSnackbar}
           // onUpdateCategory={updateCategory}
           changeSummary={changeSummary}

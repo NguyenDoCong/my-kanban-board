@@ -46,11 +46,12 @@ function Summary({ changeSummary, detailedSummary }) {
         <div>
           <textarea
             readOnly={!isEditing}
-            className={styles.summaryInit}
+            // className={styles.summaryInit}
+            className={`${styles.summaryInit} ${detailedSummary !== null ? styles.summary : ''}`}
             placeholder={
               detailedSummary === null
                 ? "Add a more detailed description..."
-                : ""
+                : detailedSummary
             }
             onClick={handleEditClick}
             value={detailedSummary !== null ? detailedSummary : ""}

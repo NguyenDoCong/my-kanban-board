@@ -5,7 +5,7 @@ import 'moment/locale/vi'; // Chọn ngôn ngữ hiển thị
 
 function Comment({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedText, setEditedText] = useState();
+  const [editedText, setEditedText] = useState(comment.description);
 
   useEffect(() => {
     // console.log("comment:",comment);
@@ -18,27 +18,27 @@ function Comment({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
     setIsEditing(true);
   };
 
-  // const handleSaveClick = () => {
-  //   // Call the onEdit callback with the edited text
-  //   onEdit(comment.id, editedText);
-  //   loadIssue(issue.id);
-  //   setIsEditing(false);
-  // };
+  const handleSaveClick = () => {
+    // Call the onEdit callback with the edited text
+    onEdit(comment.id, editedText);
+    // loadIssue(issue.id);
+    setIsEditing(false);
+  };
 
-  // const handleCancelClick = (event) => {
-  //   event.preventDefault();
+  const handleCancelClick = (event) => {
+    event.preventDefault();
 
-  //   setIsEditing(false);
-  //   // setEditedText(comment.description);
-  // };
+    setIsEditing(false);
+    // setEditedText(comment.description);
+  };
 
-  // const handleTextChange = (e) => {
-  //   setEditedText(e.target.value);
-  // };
+  const handleTextChange = (e) => {
+    setEditedText(e.target.value);
+  };
 
-  // const handleCommentDelete = (commentId) => {
-  //   onDeleteComment(commentId); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
-  // };
+  const handleCommentDelete = (commentId) => {
+    onDeleteComment(commentId); // Cập nhật newComment bằng giá trị nhập vào từ trường textarea
+  };
 
   const dateTime = new Date(comment.created_at);
 
@@ -71,15 +71,15 @@ function Comment({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
         <div>
           <textarea
             value={editedText}
-            // onChange={handleTextChange}
+            onChange={handleTextChange}
           />
           <button
-          // onClick={handleSaveClick}
+          onClick={handleSaveClick}
           >
             Save
           </button>
           <button
-          // onClick={handleCancelClick}
+          onClick={handleCancelClick}
           >
             Cancel
           </button>
@@ -98,7 +98,7 @@ function Comment({ comment, onEdit, onDeleteComment, issue, loadIssue }) {
             Edit
           </button>
           <button
-            // onClick={() => handleCommentDelete(comment.id)}
+            onClick={() => handleCommentDelete(comment.id)}
             className={styles.buttonless}
           >
             Delete

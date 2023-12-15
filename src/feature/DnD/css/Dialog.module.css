@@ -159,6 +159,14 @@ textarea {
 
 }
 
+.summary{
+  background-color: #282828;
+  border: none;
+  resize: none;
+  cursor: pointer;
+
+}
+
 .initComment{
   background-color: #181818;
   padding: 10px;

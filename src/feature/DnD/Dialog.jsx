@@ -330,18 +330,18 @@ function Dialog({
                     className={styles.initComment}
                     addComment={addComment}
                   />
-                </div>
-                <div>
                   {issue.comment.map((comment) => (
                     <Comment
                       key={comment.id}
                       comment={comment}
-                      // onDeleteComment={handleCommentDelete}
+                      onEdit={onEditComment}
+                      onDeleteComment={handleCommentDelete}
                       // issue
                       // loadIssue
                     />
                   ))}
                 </div>
+              
                 {/* <textarea
                   name="comment"
                   value={newComment}
