@@ -38,7 +38,7 @@ function Members({ issueMembers, isEditing, handleAddMember, projectMembers }) {
         }
         return null; // Handle the case where a member with the specified id is not found
       });
-      console.log(membersWithNames);
+      console.log("membersWithNames:",membersWithNames);
 
       handleAddMember(membersWithNames);
       return updatedSelectedMembers;

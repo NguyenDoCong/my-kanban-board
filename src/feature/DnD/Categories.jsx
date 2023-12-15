@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 // import styles from "./Dialog.module.css";
 import styles from "./css/Members.module.css";
 
-function Categories({ selectedCategory, changeCat, handleAddMember, categories }) {
+function Categories({
+  selectedCategory,
+  changeCat,
+  handleAddMember,
+  categories,
+  updateCat,
+}) {
   const [selectedMembers, setSelectedMembers] = useState([]);
   //   const [selectAll, setSelectAll] = useState(true);
 
@@ -13,37 +19,9 @@ function Categories({ selectedCategory, changeCat, handleAddMember, categories }
     // console.log("selectedCategory:",selectedCategory);
   }, []);
 
-  const handleRadioChange = (memberId) => {
-    // Kiểm tra xem memberId đã được chọn chưa
-    if (selectedMembers.includes(memberId)) {
-      // Nếu đã được chọn, loại bỏ khỏi danh sách
-      setSelectedMembers((prevSelectedMembers) =>
-        prevSelectedMembers.filter((id) => id !== memberId)
-      );
-    } else {
-      // Nếu chưa được chọn, thêm vào danh sách
-      setSelectedMembers((prevSelectedMembers) => [
-        ...prevSelectedMembers,
-        memberId,
-      ]);
-    }
-
-    // Sử dụng hàm callback để đảm bảo selectedMembers đã được cập nhật
-    setSelectedMembers((updatedSelectedMembers) => {
-      //   console.log("Những người được chọn:", updatedSelectedMembers);
-
-      const membersWithNames = updatedSelectedMembers.map((id) => {
-        const member = projectMembers.find((member) => member.id === id);
-        if (member) {
-          return { id: member.id, user_name: member.user_name };
-        }
-        return null; // Handle the case where a member with the specified id is not found
-      });
-      console.log(membersWithNames);
-
-      handleAddMember(membersWithNames);
-      return updatedSelectedMembers;
-    });
+  const handleRadioChange = (category) => {
+    updateCat(category);
+    console.log("category:",category);
   };
 
   return (

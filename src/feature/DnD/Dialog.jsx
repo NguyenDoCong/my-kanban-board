@@ -26,8 +26,10 @@ function Dialog({
   onEditComment,
   onShowSnackbar,
   changeSummary,
+  changeMembers,
   // selectedCategory
   // currentUser,
+  updateCat,
 }) {
   if (!show) return null;
 
@@ -84,21 +86,23 @@ function Dialog({
   const handleAddMember = (selectedMembers) => {
     // e.preventDefault(); // Ngăn chặn sự kiện mặc định của nút "Thêm"
 
-    let updatedMembers;
+    // let updatedMembers;
 
-    if (typeof memberList !== "undefined" && memberList.length === 0) {
-      updatedMembers = [selectedMembers];
-    } else {
-      updatedMembers = [...memberList, selectedMembers];
-    }
-    setMemberList(updatedMembers);
-    // setMemberList((prevMembers) => {
-    //   let updatedMembers = [...prevMembers, selectedMember];
+    // if (typeof memberList !== "undefined" && memberList.length === 0) {
+    //   updatedMembers = [selectedMembers];
+    // } else {
+    //   updatedMembers = [...memberList, selectedMembers];
+    // }
+    // setMemberList(updatedMembers);
+    // // setMemberList((prevMembers) => {
+    // //   let updatedMembers = [...prevMembers, selectedMember];
 
-    console.log("trc khi them", updatedMembers);
+    // console.log("trc khi them", updatedMembers);
 
     // const member_id_list = updatedMembers.map((member) => member.id);
     // setMemberIdList(member_id_list);
+
+    changeMembers(selectedMembers);
 
     // onUpdateIssue(
     //   issue.id,
@@ -162,7 +166,7 @@ function Dialog({
     // e.preventDefault(); // Ngăn chặn sự kiện mặc định của nút "Thêm"
     setChangeCat(!changeCat);
     // const member_id_list = memberList.map((member) => member.id);
-    console.log("selectedCategory:", selectedCategory);
+    // console.log("selectedCategory:", selectedCategory);
     // // if (formData.member == user.profile.id) {
     // onUpdateCategory(
     //   issue.id,
@@ -213,7 +217,7 @@ function Dialog({
 
   const onChangeSummary = (editedText) => {
     changeSummary(editedText);
-  }
+  };
 
   const handleCommentEdit = (commentId, editedText) => {
     // Find the comment by its ID
@@ -242,7 +246,7 @@ function Dialog({
 
   const handleEditClick = (event) => {
     event.preventDefault();
-
+    setChangeCat(false);
     setIsEditing(!isEditing);
   };
 
@@ -253,53 +257,57 @@ function Dialog({
           <div>
             <h3>{issue.issue_name}</h3>
             <form onSubmit={handleSubmit}>
-              <label> Members: </label>
-              <span>
-                {issue.members &&
-                  issue.members.length > 0 &&
-                  issue.members.map((member, index) => (
-                    <span key={member.id}>
-                      {member.user_name}
-                      {index < issue.members.length - 1 ? ", " : " "}
-                    </span>
-                  ))}
-                {/* {issueMembers && issueMembers.user_name} */}
-              </span>
+              <div className={styles.section}>
+                <label> Members: </label>
+                <span>
+                  {issue.members &&
+                    issue.members.length > 0 &&
+                    issue.members.map((member, index) => (
+                      <span key={member.id}>
+                        {member.user_name}
+                        {index < issue.members.length - 1 ? ", " : " "}
+                      </span>
+                    ))}
+                  {/* {issueMembers && issueMembers.user_name} */}
+                </span>
 
-              <label>Category: </label>
-              <span>{selectedCategory && selectedCategory.category_name}</span>
-              <br></br>
+                <label>Category: </label>
+                <span>{issue.category && issue.category.category_name}</span>
+                <br></br>
+              </div>
 
-              <label>Summary:</label>
-              <br></br>
+              <div className={styles.section}>
+                <label>Summary:</label>
+                <br></br>
 
-              {/* <textarea
+                {/* <textarea
                 name="description"
                 value={description}
                 onChange={handleDesChange}
               /> */}
 
-              <Summary
-                // key={comment.id}
-                // comment={comment}
-                changeSummary={onChangeSummary}
-                detailedSummary={issue.summary}
-                // onDeleteComment={handleCommentDelete}
-                // issue
-                // loadIssue
-              />
-              {/* <button onClick={handleSave}>Save</button> */}
-              {/* 
+                <Summary
+                  // key={comment.id}
+                  // comment={comment}
+                  changeSummary={onChangeSummary}
+                  detailedSummary={issue.summary}
+                  // onDeleteComment={handleCommentDelete}
+                  // issue
+                  // loadIssue
+                />
+                {/* <button onClick={handleSave}>Save</button> */}
+                {/* 
           <textarea
             placeholder="Issue Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           /> */}
-              {/* <button type="submit" onClick={handleSave}>
+                {/* <button type="submit" onClick={handleSave}>
                 Save
               </button> */}
+              </div>
 
-              <div>
+              <div className={styles.section}>
                 <label>Comments:</label>
                 <br></br>
                 {/* <ul>
@@ -325,11 +333,13 @@ function Dialog({
                   </li>
                 ))}
             </ul> */}
-                <div>
+                <div className={styles.section}>
                   <NewComment
                     className={styles.initComment}
                     addComment={addComment}
                   />
+                </div>
+                <div>
                   {issue.comment.map((comment) => (
                     <Comment
                       key={comment.id}
@@ -341,7 +351,6 @@ function Dialog({
                     />
                   ))}
                 </div>
-              
                 {/* <textarea
                   name="comment"
                   value={newComment}
@@ -386,10 +395,10 @@ function Dialog({
           />
           <button onClick={handleCategoryButtonClick}>Categories</button>
           <Categories
-            selectedCategory={selectedCategory}
+            selectedCategory={issue.category}
             changeCat={changeCat}
-            handleAddMember={handleAddMember}
             categories={categories}
+            updateCat={updateCat}
           />
         </div>
         <div className={styles.clearfix}></div>

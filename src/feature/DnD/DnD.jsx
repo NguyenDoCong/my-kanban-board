@@ -400,6 +400,30 @@ function DnD() {
     setDetailedIssue(updatedDetailedIssue);
   };
 
+  const changeMembers = (updatedMembers) => {
+    setDetailedIssue((prevState) => ({
+      ...prevState,
+      members: updatedMembers,
+    }));
+
+    // Cập nhật state với detailedIssue mới
+    // setDetailedIssue(updatedDetailedIssue);
+  };
+
+  const updateCat = (updatedCategoryName) => {
+    setDetailedIssue((prevState) => ({
+      ...prevState,
+      category: {
+        ...prevState.category,
+        category_name: updatedCategoryName,
+      },
+    }));
+    console.log("updatedCategoryName:",updatedCategoryName);
+
+    // Cập nhật state với detailedIssue mới
+    // setDetailedIssue(updatedDetailedIssue);
+  };
+
   useEffect(() => {
     // console.log(issueMembers); // Log giá trị mới sau khi cập nhậ
     // const member_id_list = issueMembers.map((member) => member.id);
@@ -990,6 +1014,8 @@ function DnD() {
           onShowSnackbar={handleShowSnackbar}
           // onUpdateCategory={updateCategory}
           changeSummary={changeSummary}
+          changeMembers={changeMembers}
+          updateCat={updateCat}
         />
 
         <div>
