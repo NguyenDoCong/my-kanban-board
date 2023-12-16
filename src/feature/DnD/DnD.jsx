@@ -418,7 +418,7 @@ function DnD() {
         category_name: updatedCategoryName,
       },
     }));
-    console.log("updatedCategoryName:",updatedCategoryName);
+    console.log("updatedCategoryName:", updatedCategoryName);
 
     // Cập nhật state với detailedIssue mới
     // setDetailedIssue(updatedDetailedIssue);
@@ -472,9 +472,50 @@ function DnD() {
   };
 
   const handleCreateButtonClick = (droppableId) => {
-    // console.log(prjId);
+
     setStatusInfo(droppableId);
     setIsCreateDialogOpen(true);
+    // Tạo một issue mới
+    const newIssue = {
+      id:
+        Math.max(
+          ...Object.values(state).flatMap((statusIssues) =>
+            statusIssues.map((issue) => issue.id)
+          ),
+          0
+        ) + 1,
+      issue_name: addIssue,
+      status: {
+        status_name: openDroppable,
+      },
+      category: {
+        category_name: null,
+      },
+      summary: null,
+      created_by: {
+        id: 101,
+        user_name: "CongND", // Thay đổi user_name theo yêu cầu của bạn
+      },
+      updated_by: null,
+    };
+
+    // Cập nhật state với vấn đề mới được thêm vào
+    setState((prevState) => {
+      const updatedState = { ...prevState };
+
+      // Kiểm tra xem danh sách status đã tồn tại chưa
+      if (!updatedState[openDroppable]) {
+        updatedState[openDroppable] = [];
+      }
+
+      // Thêm vấn đề mới vào danh sách tương ứng
+      updatedState[openDroppable].push(newIssue);
+
+      return updatedState;
+    });
+    setIsCreateDialogOpen(false);
+    setOpenDroppable(null);
+    setAddIssue(null);
   };
 
   const handleCancelClick = () => {
